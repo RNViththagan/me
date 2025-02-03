@@ -10,7 +10,7 @@ export default function Projects() {
       technologies: ["React.js", "Node.js", "MySQL", "Sequelize ORM"],
       description: "Web-based system for hostel management at the University of Jaffna.",
       link: "http://www.myuoj.jfn.ac.lk/",
-      image: "/placeholder.svg",
+      image: "./placeholder.svg",
     },
     {
       title: "Exam Registration System",
@@ -19,7 +19,7 @@ export default function Projects() {
       technologies: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
       description: "Online platform automating student exam registration and scheduling.",
       link: "https://ers-fos.wuaze.com/",
-      image: "/placeholder.svg",
+      image: "./placeholder.svg",
     },
     {
       title: "E-commerce Platform (VKQube)",
@@ -28,7 +28,7 @@ export default function Projects() {
       technologies: ["PHP", "MySQL", "JavaScript"],
       description: "Platform for browsing products, cart management, and payments.",
       link: "http://vkqube.wuaze.com/",
-      image: "/placeholder.svg",
+      image: "./placeholder.svg",
     },
   ]
 
