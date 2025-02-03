@@ -1,12 +1,12 @@
 import { Award, BadgeIcon as Certificate } from "lucide-react"
 
 export default function Achievements() {
-  const achievements = ["🏆 2nd Runner-Up - CodeStorm 2023 (Yarl IT Hub)", "🎖 IEEE Xtreme 16.0, 17.0 Participation"]
+  const achievements = ["🏆 2nd Runner-Up - CodeStorm 2023 (Yarl IT Hub)"]
 
   const certifications = [
-    "📜 Python for Beginners - University of Moratuwa",
+    "📜 Python for Beginners - University of Moratuwa (CODL)",
     "🏅 IEEE Xtreme Participation (16.0, 17.0)",
-    "🏆 CodeRevivor 2.0 Participation - IEEE SB, University of Vavuniya",
+    "🏅 CodeRevivor 2.0 Participation - IEEE SB, University of Vavuniya",
   ]
 
   return (
