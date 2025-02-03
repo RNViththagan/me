@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 59 130 246;
+  --primary-light: 96 165 250;
+  --primary-dark: 29 78 216;
+  --secondary: 14 165 233;
+  --accent: 6 182 212;
+  --background: 241 245 249;
+  --foreground: 15 23 42;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@layer base {
+  body {
+    @apply text-slate-800 bg-slate-50;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-blue-600;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-4xl mx-auto px-4 py-16;
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg;
+  }
+  .btn {
+    @apply px-4 py-2 rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
