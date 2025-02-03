@@ -3,9 +3,9 @@ import { Code, Database, Monitor, Video } from "lucide-react"
 export default function Skills() {
   const skills = [
     { category: "Programming Languages", items: ["Java", "Python", "PHP", "JavaScript", "PERL"], icon: Code },
-    { category: "Web Development", items: ["React.js", "Node.js", "Express.js", "MySQL"], icon: Monitor },
-    { category: "Database Management", items: ["MySQL (Sequelize ORM)"], icon: Database },
-    { category: "Video Editing", items: ["Adobe Premiere Pro", "Adobe After Effects"], icon: Video },
+    { category: "Web Development", items: ["React.js", "Node.js", "Express.js"], icon: Monitor },
+    { category: "Database Management", items: ["MySQL (Sequelize ORM)","MongoDB"], icon: Database },
+    { category: "Video Editing & Graphic Designing", items: ["Adobe Premiere Pro", "Adobe After Effects","Adobe Photoshop"], icon: Video },
   ]
 
   return (
