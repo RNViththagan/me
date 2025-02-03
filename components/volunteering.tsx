@@ -1,4 +1,4 @@
-import { Users, Facebook, Linkedin, Globe } from "lucide-react"
+import { Users, Facebook, Linkedin, Globe } from "lucide-react";
 
 export default function Volunteering() {
   const roles = [
@@ -7,30 +7,46 @@ export default function Volunteering() {
       year: "2024",
       links: [
         { icon: Facebook, href: "https://web.facebook.com/uojcompsoc/" },
-        { icon: Linkedin, href: "https://www.linkedin.com/company/compsoc-uoj" },
+        {
+          icon: Linkedin,
+          href: "https://www.linkedin.com/company/compsoc-uoj",
+        },
         { icon: Globe, href: "https://www.society.jfn.ac.lk/compsoc/" },
       ],
     },
     {
       title: "Vice Chairman, IEEE Computer Society SBC, UoJ",
       year: "2023",
-      links: [{ icon: Linkedin, href: "https://www.linkedin.com/company/ieeecsuoj" }],
+      links: [
+        { icon: Facebook, href: "https://web.facebook.com/IEEECSUOJ" },
+        { icon: Linkedin, href: "https://www.linkedin.com/company/ieeecsuoj" },
+      ],
+    },
+    {
+      title:
+        "Public Visibility Team Lead & Video Editor, IEEE Student Branch UoJ",
+      year: "2023",
+      links: [
+        { icon: Facebook, href: "https://web.facebook.com/IEEESBUoJ/" },
+        { icon: Linkedin, href: "https://www.linkedin.com/company/ieeesbuoj" },
+        { icon: Globe, href: "http://society.jfn.ac.lk/ieee" },
+      ],
     },
     {
       title: "Treasurer, IEEE Computer Society SBC, UoJ",
       year: "2022",
-      links: [{ icon: Linkedin, href: "https://www.linkedin.com/company/ieeecsuoj" }],
+      links: [
+        { icon: Facebook, href: "https://web.facebook.com/IEEECSUOJ" },
+        { icon: Linkedin, href: "https://www.linkedin.com/company/ieeecsuoj" },
+      ],
     },
-    {
-      title: "Public Visibility Team Lead & Video Editor, IEEE Student Branch UoJ",
-      year: "2023",
-      links: [{ icon: Linkedin, href: "https://www.linkedin.com/company/ieeesbuoj" }],
-    },
-  ]
+  ];
 
   return (
     <section id="volunteering" className="section-container">
-      <h2 className="text-3xl font-bold mb-6 text-center">Volunteering & Leadership</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center">
+        Volunteering & Leadership
+      </h2>
       <div className="card p-6">
         <div className="flex items-center mb-4">
           <Users className="w-8 h-8 text-blue-600 mr-3" />
@@ -44,7 +60,9 @@ export default function Volunteering() {
             >
               <div>
                 <span className="text-lg text-slate-700">{role.title}</span>
-                <span className="text-blue-500 font-semibold ml-2">{role.year}</span>
+                <span className="text-blue-500 font-semibold ml-2">
+                  {role.year}
+                </span>
               </div>
               <div className="flex mt-2 sm:mt-0">
                 {role.links.map((link, linkIndex) => (
@@ -64,6 +82,5 @@ export default function Volunteering() {
         </ul>
       </div>
     </section>
-  )
+  );
 }
-
