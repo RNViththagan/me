@@ -3,14 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --primary: 59 130 246;
-  --primary-light: 96 165 250;
-  --primary-dark: 29 78 216;
-  --secondary: 14 165 233;
-  --accent: 6 182 212;
-  --background: 241 245 249;
-  --foreground: 15 23 42;
+  --background: 15 23 42;
+  --foreground: 226 232 240;
+  --card: 30 41 59;
+  --card-foreground: 226 232 240;
+  --popover: 30 41 59;
+  --popover-foreground: 226 232 240;
+  --primary: 56 189 248;
+  --primary-foreground: 15 23 42;
+  --secondary: 226 232 240;
+  --secondary-foreground: 15 23 42;
+  --muted: 51 65 85;
+  --muted-foreground: 148 163 184;
+  --accent: 56 189 248;
+  --accent-foreground: 15 23 42;
+  --destructive: 239 68 68;
+  --destructive-foreground: 226 232 240;
+  --border: 51 65 85;
+  --input: 51 65 85;
+  --ring: 56 189 248;
 }
+
 
 @keyframes float {
   0% {
@@ -24,35 +37,61 @@
   }
 }
 
-@layer base {
-  body {
-    @apply text-slate-800 bg-slate-50;
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-bold text-blue-600;
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
   }
 }
 
-@layer components {
-  .section-container {
-    @apply max-w-4xl mx-auto px-4 py-16;
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
   }
-  .card {
-    @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg;
+  to {
+    transform: rotate(360deg);
   }
-  .btn {
-    @apply px-4 py-2 rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
 @layer utilities {
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
+  .animation-delay-2000 {
+    animation-delay: 2s;
   }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-400;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
 }
 
