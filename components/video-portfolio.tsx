@@ -179,7 +179,7 @@ export default function VideoPortfolio() {
           {videos.map((video, index) => (
             <div
               key={index}
-              className={`${showAll ? "w-full sm:w-1/2 lg:w-1/3 p-4" : "w-80 flex-shrink-0"}`}
+              className={`${showAll ? "w-full sm:w-1/2 lg:w-1/3 p-4" : "sm:w-1/2 lg:w-1/3 p-4 flex-shrink-0"}`}
             >
               {renderVideo(video)}
             </div>
@@ -283,7 +283,7 @@ export default function VideoPortfolio() {
   );
 
   return (
-    <section id="video-portfolio" className="py-20 px-6 bg-slate-900">
+    <section id="video-portfolio" className="py-20 md:px-6 bg-slate-900">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-12 text-center text-blue-400">
           Video Portfolio
