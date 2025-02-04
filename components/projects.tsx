@@ -23,7 +23,7 @@ export default function Projects() {
       title: "Exam Registration System",
       year: "2023",
       role: "Team Lead",
-      technologies: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
+      technologies: ["PHP", "MySQL", "JavaScript", "TailwindCSS"],
       description:
         "Online platform automating student exam registration and scheduling.",
       link: "https://ers-fos.wuaze.com/",
@@ -33,7 +33,7 @@ export default function Projects() {
       title: "E-commerce Platform",
       year: "2020",
       role: "",
-      technologies: ["PHP", "MySQL", "JavaScript"],
+      technologies: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
       description:
         "Platform for browsing products, cart management, and payments.",
       link: "http://vkqube.wuaze.com/",
