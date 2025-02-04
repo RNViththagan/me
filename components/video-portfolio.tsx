@@ -145,11 +145,14 @@ export default function VideoPortfolio() {
     ref: React.RefObject<HTMLDivElement>,
   ) => {
     if (ref.current) {
-      const { scrollLeft, clientWidth } = ref.current;
+      const cardWidth = ref.current.firstChild
+        ? (ref.current.firstChild as HTMLElement).getBoundingClientRect().width
+        : 0;
+
+      const { scrollLeft } = ref.current;
       const scrollTo =
-        direction === "left"
-          ? scrollLeft - clientWidth
-          : scrollLeft + clientWidth;
+        direction === "left" ? scrollLeft - cardWidth : scrollLeft + cardWidth;
+
       ref.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
   };
