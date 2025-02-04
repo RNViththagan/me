@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-400">
       <Header />
-      <main className="container mx-auto py-8">
+      <main className="container mx-auto md:py-8">
         <Hero />
         <About />
         <Skills />
