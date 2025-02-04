@@ -3,6 +3,7 @@ import Hero from "@/components/hero";
 import About from "@/components/about";
 import Skills from "@/components/skills";
 import Projects from "@/components/projects";
+import VideoPortfolio from "@/components/video-portfolio";
 import Achievements from "@/components/achievements";
 import Education from "@/components/education";
 import Volunteering from "@/components/volunteering";
@@ -18,6 +19,7 @@ export default function Home() {
         <About />
         <Skills />
         <Projects />
+        <VideoPortfolio />
         <Achievements />
         <Education />
         <Volunteering />
