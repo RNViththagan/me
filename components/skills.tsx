@@ -1,4 +1,4 @@
-import { Code, Database, Monitor, Video } from "lucide-react"
+import { Code, Database, Monitor, Video } from "lucide-react";
 
 export default function Skills() {
   const skills = [
@@ -58,6 +58,5 @@ export default function Skills() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-
