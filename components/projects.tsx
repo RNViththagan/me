@@ -17,7 +17,7 @@ export default function Projects() {
       description:
         "Web-based system for hostel management at the University of Jaffna. Part of MyUoJ",
       link: "http://www.myuoj.jfn.ac.lk/",
-      image: "./placeholder.svg",
+      image: "./prj/myuoj.png",
     },
     {
       title: "Exam Registration System",
@@ -27,7 +27,7 @@ export default function Projects() {
       description:
         "Online platform automating student exam registration and scheduling.",
       link: "https://ers-fos.wuaze.com/",
-      image: "./placeholder.svg",
+      image: "./prj/ers-fos.png",
     },
     {
       title: "E-commerce Platform",
@@ -37,7 +37,7 @@ export default function Projects() {
       description:
         "Platform for browsing products, cart management, and payments.",
       link: "http://vkqube.wuaze.com/",
-      image: "./placeholder.svg",
+      image: "./prj/vkqube.jpeg",
     },
   ];
 
