@@ -2,11 +2,27 @@ import { Code, Database, Monitor, Video } from "lucide-react"
 
 export default function Skills() {
   const skills = [
-    { category: "Programming Languages", items: ["Java", "Python", "PHP", "JavaScript", "PERL"], icon: Code },
-    { category: "Web Development", items: ["React.js", "Node.js", "Express.js"], icon: Monitor },
-    { category: "Database Management", items: ["MySQL (Sequelize ORM)","MongoDB"], icon: Database },
-    { category: "Video Editing & Graphic Designing", items: ["Adobe Premiere Pro", "Adobe After Effects","Adobe Photoshop"], icon: Video },
-  ]
+    {
+      category: "Programming Languages",
+      items: ["Java", "Python", "PHP", "JavaScript", "PERL"],
+      icon: Code,
+    },
+    {
+      category: "Web Development",
+      items: ["React.js", "Node.js", "Express.js"],
+      icon: Monitor,
+    },
+    {
+      category: "Database Management",
+      items: ["MySQL (Sequelize ORM)", "MongoDB"],
+      icon: Database,
+    },
+    {
+      category: "Video Editing & Graphic Designing",
+      items: ["Adobe Premiere Pro", "Adobe After Effects", "Adobe Photoshop"],
+      icon: Video,
+    },
+  ];
 
   return (
     <section id="skills" className="py-20 px-6 px-10 bg-slate-800">
