@@ -6,12 +6,12 @@ export default function Volunteering() {
       title: "President, Computer Society, UoJ",
       year: "2024",
       links: [
+        { icon: Globe, href: "https://www.society.jfn.ac.lk/compsoc/" },
         { icon: Facebook, href: "https://web.facebook.com/uojcompsoc/" },
         {
           icon: Linkedin,
           href: "https://www.linkedin.com/company/compsoc-uoj",
         },
-        { icon: Globe, href: "https://www.society.jfn.ac.lk/compsoc/" },
       ],
     },
     {
@@ -27,9 +27,9 @@ export default function Volunteering() {
         "Public Visibility Team Lead & Video Editor, IEEE Student Branch UoJ",
       year: "2023",
       links: [
+        { icon: Globe, href: "http://society.jfn.ac.lk/ieee" },
         { icon: Facebook, href: "https://web.facebook.com/IEEESBUoJ/" },
         { icon: Linkedin, href: "https://www.linkedin.com/company/ieeesbuoj" },
-        { icon: Globe, href: "http://society.jfn.ac.lk/ieee" },
       ],
     },
     {
