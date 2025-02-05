@@ -112,7 +112,7 @@ export default function VideoPortfolio() {
           scrollRef={shortFilmScrollRef}
         />
         <VideoSection
-          title="Promo Videos"
+          title="Promos"
           videos={promos}
           showAll={showAllPromos}
           setShowAll={setShowAllPromos}
