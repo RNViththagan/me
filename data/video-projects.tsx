@@ -128,9 +128,34 @@ export const promos: Video[] = [
   {
     title: "UoJ",
     description: "Tools : After Effects, Premiere Pro",
-    videoId: "796017478891993", // Duplicate ID as previously
+    videoId: "796017478891993",
     link: "https://web.facebook.com/watch/?v=796017478891993",
   },
+  {
+    title: "Venture Versatile - Session 02",
+    description: "Tools : Premiere Pro",
+    videoId: "266618528721569",
+    link: "https://web.facebook.com/watch/?v=266618528721569",
+  },
+  {
+    title: "Gypzeez Venture Versatile",
+    description: "Tools : Premiere Pro",
+    videoId: "386588536478829",
+    link: "https://web.facebook.com/gypzeez/videos/386588536478829",
+  },
+  {
+    title: "Gypzeez Game",
+    description: "Tools : Premiere Pro",
+    videoId: "288304876461198",
+    link: "https://web.facebook.com/gypzeez/videos/288304876461198",
+  },
+  {
+    title: "WeAreGypzeez",
+    description: "Tools : After Effects, Premiere Pro",
+    videoId: "882252925721857",
+    link: "https://web.facebook.com/watch/?v=882252925721857",
+  },
+
   {
     title: "Sangamam 2K18 JHC",
     description: "Tools : After Effects, Premiere Pro",
