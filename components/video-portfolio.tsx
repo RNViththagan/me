@@ -50,7 +50,7 @@ export default function VideoPortfolio() {
       <div className="relative">
         <div
           ref={scrollRef}
-          className={`flex  mx-10 ${showAll ? "flex-wrap justify-center" : " space-x-6 overflow-x-auto pb-6 hide-scrollbar"}`}
+          className={`flex ${showAll ? "flex-wrap justify-center" : "mx-10 space-x-6 overflow-x-auto pb-6 hide-scrollbar"}`}
           style={{ scrollSnapType: "x mandatory" }}
         >
           {videos.map((video, index) => (
