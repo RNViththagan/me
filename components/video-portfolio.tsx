@@ -102,7 +102,7 @@ export default function VideoPortfolio() {
     <section id="video-portfolio" className="py-20 md:px-6 bg-slate-900">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-12 text-center text-blue-400">
-          Video Portfolio
+          Visual Creations
         </h2>
         <VideoSection
           title="Short Films & Songs"
@@ -112,7 +112,7 @@ export default function VideoPortfolio() {
           scrollRef={shortFilmScrollRef}
         />
         <VideoSection
-          title="Promos"
+          title="Promotional Videos"
           videos={promos}
           showAll={showAllPromos}
           setShowAll={setShowAllPromos}
