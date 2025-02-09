@@ -1,35 +1,39 @@
-"use client"
-import { ChevronDown } from "lucide-react"
-import { useState, useRef } from "react"
-import VideoCard from "./VideoCard"
-import { shortFilms, promos } from "@/data/video-projects"
-import { motion } from "framer-motion"
-import ScrollAnimation from "./ScrollAnimation"
+"use client";
+import { ChevronDown } from "lucide-react";
+import { useState, useRef } from "react";
+import VideoCard from "./VideoCard";
+import { shortFilms, promos } from "@/data/video-projects";
+import { motion } from "framer-motion";
+import ScrollAnimation from "./ScrollAnimation";
 
 interface Video {
-  title: string
-  description: string
-  videoId: string
-  link: string
+  title: string;
+  description: string;
+  videoId: string;
+  link: string;
 }
 
 export default function VideoPortfolio() {
-  const [showAllShortFilms, setShowAllShortFilms] = useState(false)
-  const [showAllPromos, setShowAllPromos] = useState(false)
-  const shortFilmScrollRef = useRef<HTMLDivElement>(null)
-  const promoScrollRef = useRef<HTMLDivElement>(null)
+  const [showAllShortFilms, setShowAllShortFilms] = useState(false);
+  const [showAllPromos, setShowAllPromos] = useState(false);
+  const shortFilmScrollRef = useRef<HTMLDivElement>(null);
+  const promoScrollRef = useRef<HTMLDivElement>(null);
 
-  const scroll = (direction: "left" | "right", ref: React.RefObject<HTMLDivElement>) => {
+  const scroll = (
+    direction: "left" | "right",
+    ref: React.RefObject<HTMLDivElement>,
+  ) => {
     if (ref.current) {
       const cardWidth = ref.current.firstChild
         ? (ref.current.firstChild as HTMLElement).getBoundingClientRect().width
-        : 0
-      const scrollLeft = ref.current.scrollLeft
-      const scrollTo = direction === "left" ? scrollLeft - cardWidth : scrollLeft + cardWidth
+        : 0;
+      const scrollLeft = ref.current.scrollLeft;
+      const scrollTo =
+        direction === "left" ? scrollLeft - cardWidth : scrollLeft + cardWidth;
 
-      ref.current.scrollTo({ left: scrollTo, behavior: "smooth" })
+      ref.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
-  }
+  };
 
   const VideoSection = ({
     title,
@@ -38,11 +42,11 @@ export default function VideoPortfolio() {
     setShowAll,
     scrollRef,
   }: {
-    title: string
-    videos: Video[]
-    showAll: boolean
-    setShowAll: React.Dispatch<React.SetStateAction<boolean>>
-    scrollRef: React.RefObject<HTMLDivElement>
+    title: string;
+    videos: Video[];
+    showAll: boolean;
+    setShowAll: React.Dispatch<React.SetStateAction<boolean>>;
+    scrollRef: React.RefObject<HTMLDivElement>;
   }) => (
     <ScrollAnimation>
       <div className="mb-16">
@@ -51,7 +55,9 @@ export default function VideoPortfolio() {
           <motion.div
             ref={scrollRef}
             className={`flex ${
-              showAll ? "flex-wrap justify-center" : "mx-10 space-x-6 overflow-x-auto pb-6 hide-scrollbar"
+              showAll
+                ? "flex-wrap justify-center"
+                : "mx-10 space-x-6 overflow-x-auto pb-6 hide-scrollbar"
             }`}
             style={{ scrollSnapType: "x mandatory" }}
           >
@@ -74,8 +80,8 @@ export default function VideoPortfolio() {
                 onClick={() => scroll("left", scrollRef)}
                 className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 focus:outline-none"
                 aria-label="Scroll left"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                // whileHover={{ scale: 1.1 }}
+                // whileTap={{ scale: 0.9 }}
               >
                 <ChevronDown className="w-6 h-6 rotate-90" />
               </motion.button>
@@ -83,8 +89,8 @@ export default function VideoPortfolio() {
                 onClick={() => scroll("right", scrollRef)}
                 className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 focus:outline-none"
                 aria-label="Scroll right"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                // whileHover={{ scale: 1.1 }}
+                // whileTap={{ scale: 0.9 }}
               >
                 <ChevronDown className="w-6 h-6 -rotate-90" />
               </motion.button>
@@ -100,13 +106,15 @@ export default function VideoPortfolio() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <ChevronDown className={`w-6 h-6 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} />
+              <ChevronDown
+                className={`w-6 h-6 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`}
+              />
             </motion.button>
           </div>
         )}
       </div>
     </ScrollAnimation>
-  )
+  );
 
   return (
     <motion.section
@@ -118,7 +126,9 @@ export default function VideoPortfolio() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollAnimation>
-          <h2 className="text-3xl font-bold mb-12 text-center text-blue-400">Visual Creations</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-blue-400">
+            Visual Creations
+          </h2>
         </ScrollAnimation>
         <VideoSection
           title="Short Films & Songs"
@@ -136,6 +146,5 @@ export default function VideoPortfolio() {
         />
       </div>
     </motion.section>
-  )
+  );
 }
-
