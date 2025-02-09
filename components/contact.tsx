@@ -1,5 +1,10 @@
 "use client";
-import { Mail, Linkedin, Github, Send, Facebook } from "lucide-react";
+import {
+  IconBrandLinkedin,
+  IconBrandGithub,
+  IconSend,
+  IconBrandFacebook,
+} from "@tabler/icons-react";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast"; // Import toast
 
@@ -54,18 +59,17 @@ export default function Contact() {
               //   href: "mailto:viththagan.rn@gmail.com",
               // },
               {
-                icon: Github,
+                icon: IconBrandGithub,
                 text: "GitHub",
                 href: "https://github.com/RNViththagan",
               },
               {
-                icon: Linkedin,
+                icon: IconBrandLinkedin,
                 text: "LinkedIn",
                 href: "https://linkedin.com/in/viththagan-roy-nesarajah",
               },
-
               {
-                icon: Facebook,
+                icon: IconBrandFacebook,
                 text: "Facebook",
                 href: "https://web.facebook.com/viththagan.roynesarajah/",
               },
@@ -73,7 +77,8 @@ export default function Contact() {
               <a
                 key={index}
                 href={href}
-                target={"_blank"}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-slate-800 rounded-xl flex items-center p-4 hover:bg-slate-700 transition-colors duration-300"
               >
                 <Icon className="h-6 w-6 mr-4 text-blue-400" />
@@ -116,7 +121,7 @@ export default function Contact() {
               className="btn bg-blue-600 hover:bg-blue-700 text-white inline-flex items-center"
             >
               Send Message
-              <Send className="ml-2 h-4 w-4" />
+              <IconSend className="ml-2 h-4 w-4" />
             </button>
           </form>
         </div>

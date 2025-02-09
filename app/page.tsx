@@ -12,9 +12,9 @@ import Footer from "@/components/footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-400">
+    <div className="min-h-screen  bg-slate-900">
       <Header />
-      <main className="container mx-auto md:py-8">
+      <main className="w-full">
         <Hero />
         <About />
         <Skills />

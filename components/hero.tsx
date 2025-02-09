@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-slate-900 to-blue-900 text-white overflow-hidden md:rounded-t-xl shadow-2xl">
+    <section className="relative bg-gradient-to-br from-slate-900 to-blue-900 text-white overflow-hidden shadow-2xl">
       {/* Background elements */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>

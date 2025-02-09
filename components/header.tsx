@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { IconMenu2, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,8 +20,35 @@ export default function Header() {
             priority
           />
         </Link>
-        <nav
-          className={`${isMenuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row absolute md:relative top-full left-0 right-0 bg-slate-900/95 md:bg-transparent shadow-md md:shadow-none`}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.nav
+              className="flex md:hidden flex-col absolute top-full left-0 right-0 bg-slate-900/95 shadow-md"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {["About", "Skills", "Projects", "Achievements", "Contact"].map(
+                (item) => (
+                  <Link
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className="px-4 py-2 text-blue-300 hover:text-blue-100 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item}
+                  </Link>
+                ),
+              )}
+            </motion.nav>
+          )}
+        </AnimatePresence>
+        <motion.div
+          className="hidden md:flex"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           {["About", "Skills", "Projects", "Achievements", "Contact"].map(
             (item) => (
@@ -28,21 +56,20 @@ export default function Header() {
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 className="px-4 py-2 text-blue-300 hover:text-blue-100 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
               >
                 {item}
               </Link>
             ),
           )}
-        </nav>
+        </motion.div>
         <button
           className="md:hidden text-blue-300"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? (
-            <X className="h-6 w-6" />
+            <IconX className="h-6 w-6" />
           ) : (
-            <Menu className="h-6 w-6" />
+            <IconMenu2 className="h-6 w-6" />
           )}
         </button>
       </div>
