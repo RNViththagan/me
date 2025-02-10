@@ -40,7 +40,7 @@ export default function Projects() {
       technologies: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
       description:
         "Platform for browsing products, cart management, and payments.",
-      link: "http://vkqube.wuaze.com/",
+      link: "https://vkqube.wuaze.com/",
       github: "https://github.com/RNViththagan/IWT-Group-Project-JAF_01",
       image: "./prj/vkqube.jpeg",
     },
