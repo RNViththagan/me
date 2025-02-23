@@ -77,6 +77,28 @@ export default function VideoPortfolio() {
         (currentPage + 1) * itemsPerPage,
       );
 
+  const getVisiblePages = () => {
+    if (totalPages <= 5) return [...Array(totalPages).keys()];
+
+    if (currentPage <= 2) return [0, 1, 2, 3, 4];
+    if (currentPage >= totalPages - 3)
+      return [
+        totalPages - 5,
+        totalPages - 4,
+        totalPages - 3,
+        totalPages - 2,
+        totalPages - 1,
+      ];
+
+    return [
+      currentPage - 2,
+      currentPage - 1,
+      currentPage,
+      currentPage + 1,
+      currentPage + 2,
+    ];
+  };
+
   return (
     <motion.section
       ref={sectionRef}
@@ -245,7 +267,7 @@ export default function VideoPortfolio() {
 
                 {/* Page Indicators */}
                 <div className="flex items-center space-x-2">
-                  {[...Array(totalPages)].map((_, i) => (
+                  {getVisiblePages().map((i) => (
                     <motion.button
                       key={i}
                       onClick={() => setCurrentPage(i)}
