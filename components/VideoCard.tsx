@@ -24,7 +24,7 @@ export default function VideoCard({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsLoaded(true); // Delay to enhance animation visibility
+          setIsLoaded(true);
         }
       },
       { threshold: 0.1 },
@@ -58,7 +58,7 @@ export default function VideoCard({
     }
   };
 
-  const FacebookVideoEmbed = ({ videoId: string }) => {
+  const FacebookVideoEmbed = (videoId: string) => {
     const [embedFailed, setEmbedFailed] = useState(false);
     const iframeRef = useRef(null);
     const videoUrl = `https://www.facebook.com/facebook/videos/${videoId}/`;
@@ -140,8 +140,12 @@ export default function VideoCard({
       layout
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.009 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{
+        layout: { duration: 0.09 },
+        scale: { duration: 0.08 },
+      }}
     >
       <div className="relative pt-[56.25%] h-0 flex-shrink-0 overflow-hidden">
         <div
@@ -151,15 +155,14 @@ export default function VideoCard({
         >
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
         </div>
-        {/*!isLoaded (*/}
-        {/*<div className="absolute inset-0 flex items-center justify-center bg-slate-800">*/}
-        {/*  <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full  animate-spin" />*/}
-        {/*</div>*/}
-        {/*)*/}
-
         {renderVideoEmbed()}
       </div>
-      <div className="p-4 flex-grow flex flex-col">
+      <motion.div
+        className="p-4 flex-grow flex flex-col"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+      >
         <h4 className="text-lg font-semibold mb-2 text-blue-300 line-clamp-1">
           {title}
         </h4>
@@ -179,9 +182,16 @@ export default function VideoCard({
           whileTap={{ scale: 0.98 }}
         >
           Watch on {platform === "youtube" ? "YouTube" : "Facebook"}
-          <Play className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+          <motion.span
+            className="ml-2"
+            initial={{ x: 0 }}
+            whileHover={{ x: 5 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          >
+            <Play className="h-4 w-4" />
+          </motion.span>
         </motion.a>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
