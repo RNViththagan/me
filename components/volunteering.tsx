@@ -1,12 +1,7 @@
 "use client";
-import {
-  IconUsers,
-  IconBrandFacebook,
-  IconBrandLinkedin,
-  IconWorld,
-} from "@tabler/icons-react";
-import { motion } from "framer-motion";
-import ScrollAnimation from "./ScrollAnimation";
+import { IconUsers, IconBrandFacebook, IconBrandLinkedin, IconWorld } from "@tabler/icons-react"
+import { motion } from "framer-motion"
+import ScrollAnimation from "./ScrollAnimation"
 
 export default function Volunteering() {
   const roles = [
@@ -15,10 +10,7 @@ export default function Volunteering() {
       year: "2024",
       links: [
         { icon: IconWorld, href: "https://www.society.jfn.ac.lk/compsoc/" },
-        {
-          icon: IconBrandFacebook,
-          href: "https://web.facebook.com/uojcompsoc/",
-        },
+        { icon: IconBrandFacebook, href: "https://web.facebook.com/uojcompsoc/" },
         {
           icon: IconBrandLinkedin,
           href: "https://www.linkedin.com/company/compsoc-uoj",
@@ -30,26 +22,16 @@ export default function Volunteering() {
       year: "2023",
       links: [
         { icon: IconBrandFacebook, href: "https://web.facebook.com/IEEECSUOJ" },
-        {
-          icon: IconBrandLinkedin,
-          href: "https://www.linkedin.com/company/ieeecsuoj",
-        },
+        { icon: IconBrandLinkedin, href: "https://www.linkedin.com/company/ieeecsuoj" },
       ],
     },
     {
-      title:
-        "Public Visibility Team Lead & Video Editor, IEEE Student Branch UoJ",
+      title: "Public Visibility Team Lead & Video Editor, IEEE Student Branch UoJ",
       year: "2023",
       links: [
         { icon: IconWorld, href: "http://society.jfn.ac.lk/ieee" },
-        {
-          icon: IconBrandFacebook,
-          href: "https://web.facebook.com/IEEESBUoJ/",
-        },
-        {
-          icon: IconBrandLinkedin,
-          href: "https://www.linkedin.com/company/ieeesbuoj",
-        },
+        { icon: IconBrandFacebook, href: "https://web.facebook.com/IEEESBUoJ/" },
+        { icon: IconBrandLinkedin, href: "https://www.linkedin.com/company/ieeesbuoj" },
       ],
     },
     {
@@ -57,13 +39,10 @@ export default function Volunteering() {
       year: "2022",
       links: [
         { icon: IconBrandFacebook, href: "https://web.facebook.com/IEEECSUOJ" },
-        {
-          icon: IconBrandLinkedin,
-          href: "https://www.linkedin.com/company/ieeecsuoj",
-        },
+        { icon: IconBrandLinkedin, href: "https://www.linkedin.com/company/ieeecsuoj" },
       ],
     },
-  ];
+  ]
 
   return (
     <motion.section
@@ -106,9 +85,7 @@ export default function Volunteering() {
                 >
                   <div>
                     <span className="text-lg text-slate-300">{role.title}</span>
-                    <span className="text-blue-400 font-semibold ml-2">
-                      {role.year}
-                    </span>
+                    <span className="text-blue-400 font-semibold ml-2">{role.year}</span>
                   </div>
                   <div className="flex mt-2 sm:mt-0">
                     {role.links.map((link, linkIndex) => (
@@ -132,5 +109,6 @@ export default function Volunteering() {
         </ScrollAnimation>
       </div>
     </motion.section>
-  );
+  )
 }
+

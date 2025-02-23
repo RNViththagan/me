@@ -15,11 +15,11 @@ export default function Contact() {
     message: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const scriptURL =
@@ -43,6 +43,7 @@ export default function Contact() {
     }
   };
 
+  // @ts-ignore
   return (
     <section id="contact" className="py-20 px-6 bg-slate-900">
       <Toaster position="top-right" reverseOrder={false} />
@@ -53,11 +54,6 @@ export default function Contact() {
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-4">
             {[
-              // {
-              //   icon: Mail,
-              //   text: "viththagan.rn@gmail.com",
-              //   href: "mailto:viththagan.rn@gmail.com",
-              // },
               {
                 icon: IconBrandGithub,
                 text: "GitHub",

@@ -1,149 +1,188 @@
 "use client";
-import { ChevronDown } from "lucide-react";
-import { useState, useRef } from "react";
+import { useRef, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  IconArrowLeft,
+  IconArrowRight,
+  IconMaximize,
+  IconMinimize,
+} from "@tabler/icons-react";
 import VideoCard from "./VideoCard";
 import { shortFilms, promos } from "@/data/video-projects";
-import { motion } from "framer-motion";
-import ScrollAnimation from "./ScrollAnimation";
-
-interface Video {
-  title: string;
-  description: string;
-  videoId: string;
-  link: string;
-}
+import { useWindowSize } from "@/app/hooks/useWindowSize";
 
 export default function VideoPortfolio() {
-  const [showAllShortFilms, setShowAllShortFilms] = useState(false);
-  const [showAllPromos, setShowAllPromos] = useState(false);
-  const shortFilmScrollRef = useRef<HTMLDivElement>(null);
-  const promoScrollRef = useRef<HTMLDivElement>(null);
+  const [activeSection, setActiveSection] = useState<"films" | "promos">(
+    "promos",
+  );
+  const [currentPage, setCurrentPage] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { width } = useWindowSize();
 
-  const scroll = (
-    direction: "left" | "right",
-    ref: React.RefObject<HTMLDivElement>,
-  ) => {
-    if (ref.current) {
-      const cardWidth = ref.current.firstChild
-        ? (ref.current.firstChild as HTMLElement).getBoundingClientRect().width
-        : 0;
-      const scrollLeft = ref.current.scrollLeft;
-      const scrollTo =
-        direction === "left" ? scrollLeft - cardWidth : scrollLeft + cardWidth;
+  const videos = activeSection === "films" ? shortFilms : promos;
 
-      ref.current.scrollTo({ left: scrollTo, behavior: "smooth" });
+  // Dynamic items per page based on screen size and expanded state
+  const getItemsPerPage = useCallback(() => {
+    if (isExpanded) {
+      return videos.length; // Show all videos when expanded
+    } else {
+      if (width >= 1280) return 3; // xl
+      if (width >= 1024) return 3; // lg
+      if (width >= 768) return 2; // md
+      return 1; // sm and below
     }
+  }, [width, isExpanded, videos.length]);
+
+  const itemsPerPage = getItemsPerPage();
+  const totalPages = Math.ceil(videos.length / itemsPerPage);
+
+  const handleNext = () => {
+    setCurrentPage((prev) => (prev + 1) % totalPages);
   };
 
-  const VideoSection = ({
-    title,
-    videos,
-    showAll,
-    setShowAll,
-    scrollRef,
-  }: {
-    title: string;
-    videos: Video[];
-    showAll: boolean;
-    setShowAll: React.Dispatch<React.SetStateAction<boolean>>;
-    scrollRef: React.RefObject<HTMLDivElement>;
-  }) => (
-    <ScrollAnimation>
-      <div className="mb-16">
-        <h3 className="text-2xl font-semibold mb-8 text-blue-300">{title}</h3>
-        <div className="relative">
-          <motion.div
-            ref={scrollRef}
-            className={`flex ${
-              showAll
-                ? "flex-wrap justify-center"
-                : "mx-10 space-x-6 overflow-x-auto pb-6 hide-scrollbar"
-            }`}
-            style={{ scrollSnapType: "x mandatory" }}
-          >
-            {videos.map((video, index) => (
-              <motion.div
-                key={index}
-                className={`${showAll ? "w-full sm:w-1/2 lg:w-1/3 p-4" : "w-80 sm:w-96 flex-shrink-0"}`}
-                style={{ scrollSnapAlign: "start" }}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <VideoCard {...video} />
-              </motion.div>
-            ))}
-          </motion.div>
-          {!showAll && videos.length > 1 && (
-            <>
-              <motion.button
-                onClick={() => scroll("left", scrollRef)}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 focus:outline-none"
-                aria-label="Scroll left"
-                // whileHover={{ scale: 1.1 }}
-                // whileTap={{ scale: 0.9 }}
-              >
-                <ChevronDown className="w-6 h-6 rotate-90" />
-              </motion.button>
-              <motion.button
-                onClick={() => scroll("right", scrollRef)}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 focus:outline-none"
-                aria-label="Scroll right"
-                // whileHover={{ scale: 1.1 }}
-                // whileTap={{ scale: 0.9 }}
-              >
-                <ChevronDown className="w-6 h-6 -rotate-90" />
-              </motion.button>
-            </>
-          )}
-        </div>
-        {videos.length > 3 && (
-          <div className="flex justify-center mt-8">
-            <motion.button
-              onClick={() => setShowAll(!showAll)}
-              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 focus:outline-none transition-transform duration-300 ease-in-out transform hover:scale-110"
-              aria-label={showAll ? "Show less" : "View all"}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <ChevronDown
-                className={`w-6 h-6 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`}
-              />
-            </motion.button>
-          </div>
-        )}
-      </div>
-    </ScrollAnimation>
-  );
+  const handlePrev = () => {
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+    setCurrentPage(0); // Reset to first page when toggling view
+  };
+
+  const currentVideos = isExpanded
+    ? videos // Show all videos when expanded
+    : videos.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage,
+      );
 
   return (
     <motion.section
-      id="video-portfolio"
-      className="py-20 bg-slate-900 w-full"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      id="videos"
+      className="py-20 bg-slate-900 w-full relative overflow-hidden"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollAnimation>
-          <h2 className="text-3xl font-bold mb-12 text-center text-blue-400">
-            Visual Creations
-          </h2>
-        </ScrollAnimation>
-        <VideoSection
-          title="Short Films & Songs"
-          videos={shortFilms}
-          showAll={showAllShortFilms}
-          setShowAll={setShowAllShortFilms}
-          scrollRef={shortFilmScrollRef}
-        />
-        <VideoSection
-          title="Promotional Videos"
-          videos={promos}
-          showAll={showAllPromos}
-          setShowAll={setShowAllPromos}
-          scrollRef={promoScrollRef}
-        />
+      <div className="gradient-bg">
+        <div />
+        <div />
+        <div />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <h2 className="text-3xl font-bold mb-12 text-center text-blue-400">
+          Visual Creations
+        </h2>
+
+        {/* Section Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="glass-card rounded-full p-1 flex space-x-2">
+            <motion.button
+              onClick={() => {
+                setActiveSection("films");
+                setCurrentPage(0);
+              }}
+              className={`px-6 py-2 rounded-full transition-colors duration-300 ${
+                activeSection === "films"
+                  ? "bg-blue-500 text-white"
+                  : "text-blue-300 hover:bg-white/5"
+              }`}
+              whileTap={{ scale: 0.97 }}
+            >
+              Short Films & Songs
+            </motion.button>
+            <motion.button
+              onClick={() => {
+                setActiveSection("promos");
+                setCurrentPage(0);
+              }}
+              className={`px-6 py-2 rounded-full transition-colors duration-300 ${
+                activeSection === "promos"
+                  ? "bg-blue-500 text-white"
+                  : "text-blue-300 hover:bg-white/5"
+              }`}
+              whileTap={{ scale: 0.97 }}
+            >
+              Promotional Videos
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Video Grid */}
+        <div className="relative" ref={containerRef}>
+          <div className="overflow-hidden">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={`${activeSection}-${currentPage}-${isExpanded}`}
+                className={`grid gap-6 ${
+                  isExpanded
+                    ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3"
+                    : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                }`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                {currentVideos.map((video) => (
+                  <VideoCard key={video.videoId} {...video} />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="flex justify-center items-center mt-8 space-x-4">
+            {!isExpanded && (
+              <>
+                <motion.button
+                  onClick={handlePrev}
+                  className="glass-card p-3 rounded-full text-blue-300 hover:text-blue-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileTap={{ scale: 0.9 }}
+                  disabled={currentPage === 0}
+                >
+                  <IconArrowLeft className="w-6 h-6" />
+                </motion.button>
+
+                {/* Page Indicators */}
+                <div className="flex items-center space-x-2">
+                  {[...Array(totalPages)].map((_, i) => (
+                    <motion.button
+                      key={i}
+                      onClick={() => setCurrentPage(i)}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        i === currentPage
+                          ? "bg-blue-500 w-6"
+                          : "bg-blue-500/30 w-2 hover:bg-blue-500/50"
+                      }`}
+                      whileTap={{ scale: 0.9 }}
+                    />
+                  ))}
+                </div>
+
+                <motion.button
+                  onClick={handleNext}
+                  className="glass-card p-3 rounded-full text-blue-300 hover:text-blue-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileTap={{ scale: 0.9 }}
+                  disabled={currentPage === totalPages - 1}
+                >
+                  <IconArrowRight className="w-6 h-6" />
+                </motion.button>
+              </>
+            )}
+
+            <motion.button
+              onClick={toggleExpand}
+              className="glass-card p-3 rounded-full text-blue-300 hover:text-blue-100"
+              whileTap={{ scale: 0.9 }}
+            >
+              {isExpanded ? (
+                <IconMinimize className="w-6 h-6" />
+              ) : (
+                <IconMaximize className="w-6 h-6" />
+              )}
+            </motion.button>
+          </div>
+        </div>
       </div>
     </motion.section>
   );

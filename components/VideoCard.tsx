@@ -1,6 +1,7 @@
 "use client";
+
 import { Play } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 interface VideoCardProps {
@@ -16,26 +17,27 @@ export default function VideoCard({
   videoId,
   link,
 }: VideoCardProps) {
-  const [isInView, setIsInView] = useState(false);
-
+  const [isLoaded, setIsLoaded] = useState(false);
   const platform = link.includes("youtube") ? "youtube" : "facebook";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setIsLoaded(true); // Delay to enhance animation visibility
+        }
       },
-      { threshold: 0.5 },
+      { threshold: 0.1 },
     );
 
-    const currentElement = document.getElementById(`video-${videoId}`);
-    if (currentElement) {
-      observer.observe(currentElement);
+    const element = document.getElementById(`video-${videoId}`);
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, [videoId]);
@@ -48,52 +50,122 @@ export default function VideoCard({
           className="absolute top-0 left-0 w-full h-full border-0"
           allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-        ></iframe>
+          loading="lazy"
+        />
       );
     } else if (platform === "facebook") {
-      return (
-        <iframe
-          src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook%2Fvideos%2F${videoId}%2F&show_text=false`}
-          className="absolute top-0 left-0 w-full h-full border-0"
-          scrolling="no"
-          frameBorder="0"
-          allowFullScreen={true}
-          allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
-        ></iframe>
-      );
+      return FacebookVideoEmbed(videoId);
     }
+  };
+
+  const FacebookVideoEmbed = ({ videoId: string }) => {
+    const [embedFailed, setEmbedFailed] = useState(false);
+    const iframeRef = useRef(null);
+    const videoUrl = `https://www.facebook.com/facebook/videos/${videoId}/`;
+    const videoThumbnail = `https://graph.facebook.com/${videoId}/picture`;
+
+    useEffect(() => {
+      const checkIframeContent = () => {
+        const iframe = iframeRef.current;
+        console.log(iframe);
+        if (!iframe) return;
+
+        try {
+          // Cannot access iframe content directly (cross-origin policy),
+          // But we can observe if it resizes to an error page
+          const observer = new MutationObserver(() => {
+            if (iframe.clientHeight < 100) {
+              setEmbedFailed(true); // Switch to thumbnail if the iframe collapses
+            }
+          });
+
+          observer.observe(iframe, { attributes: true, subtree: true });
+
+          return () => observer.disconnect();
+        } catch (error) {
+          console.error("Error observing iframe:", error);
+          setEmbedFailed(true);
+        }
+      };
+
+      setTimeout(checkIframeContent, 3000); // Wait for the iframe to load
+    }, []);
+
+    return (
+      <>
+        {!embedFailed ? (
+          <iframe
+            ref={iframeRef}
+            src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook%2Fvideos%2F${videoId}%2F&show_text=false`}
+            className="absolute top-0 left-0 w-full h-full border-0"
+            scrolling="no"
+            frameBorder="0"
+            allowFullScreen
+            allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
+            loading="lazy"
+          ></iframe>
+        ) : (
+          <a
+            href={videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative block"
+          >
+            <img
+              src={videoThumbnail}
+              alt="Facebook Video Thumbnail"
+              className="w-full h-auto"
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="white"
+                viewBox="0 0 24 24"
+                width="50"
+                height="50"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </a>
+        )}
+      </>
+    );
   };
 
   return (
     <motion.div
       id={`video-${videoId}`}
-      className="bg-slate-800 rounded-xl overflow-hidden shadow-lg h-full flex flex-col"
+      className="glass-card rounded-xl overflow-hidden shadow-lg h-full flex flex-col group"
+      layout
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.009 }}
     >
-      <div className="relative pt-[56.25%] h-0 flex-shrink-0">
+      <div className="relative pt-[56.25%] h-0 flex-shrink-0 overflow-hidden">
+        <div
+          className={`absolute inset-0 flex items-center justify-center bg-slate-800 transition-opacity duration-700 ${
+            isLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        </div>
+        {/*!isLoaded (*/}
+        {/*<div className="absolute inset-0 flex items-center justify-center bg-slate-800">*/}
+        {/*  <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full  animate-spin" />*/}
+        {/*</div>*/}
+        {/*)*/}
+
         {renderVideoEmbed()}
       </div>
-      <div className="p-4 flex-grow flex flex-col justify-between">
-        <div>
-          <motion.h4
-            className="text-lg font-semibold mb-2 text-blue-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            {title}
-          </motion.h4>
-          <motion.p
-            className="text-sm text-slate-300 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            {description}
-          </motion.p>
-        </div>
+      <div className="p-4 flex-grow flex flex-col">
+        <h4 className="text-lg font-semibold mb-2 text-blue-300 line-clamp-1">
+          {title}
+        </h4>
+        <p className="text-sm text-slate-300 mb-4 line-clamp-2 flex-grow">
+          {description}
+        </p>
         <motion.a
           href={link}
           target="_blank"
@@ -102,15 +174,12 @@ export default function VideoCard({
             platform === "youtube"
               ? "bg-red-600 hover:bg-red-700"
               : "bg-blue-600 hover:bg-blue-700"
-          } text-white inline-flex items-center text-sm mt-auto`}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          } text-white inline-flex items-center text-sm group`}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
         >
-          Watch on {platform === "youtube" ? " YouTube" : " Facebook"}
-          <Play className="ml-2 h-4 w-4" />
+          Watch on {platform === "youtube" ? "YouTube" : "Facebook"}
+          <Play className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
         </motion.a>
       </div>
     </motion.div>

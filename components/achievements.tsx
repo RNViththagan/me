@@ -1,16 +1,16 @@
 "use client";
-import { IconAward, IconCertificate } from "@tabler/icons-react";
-import { motion } from "framer-motion";
-import ScrollAnimation from "./ScrollAnimation";
+import { IconAward, IconCertificate } from "@tabler/icons-react"
+import { motion } from "framer-motion"
+import ScrollAnimation from "./ScrollAnimation"
 
 export default function Achievements() {
-  const achievements = ["🏆 2nd Runner-Up - CodeStorm 2023 (Yarl IT Hub)"];
+  const achievements = ["🏆 2nd Runner-Up - CodeStorm 2023 (Yarl IT Hub)"]
 
   const certifications = [
     "📜 Python for Beginners - University of Moratuwa (CODL)",
     "🏅 IEEE Xtreme Participation (16.0, 17.0)",
     "🏅 CodeRevivor 2.0 Participation - IEEE SB, University of Vavuniya",
-  ];
+  ]
 
   return (
     <motion.section
@@ -41,9 +41,7 @@ export default function Achievements() {
             >
               <div className="flex items-center mb-4">
                 <IconAward className="w-8 h-8 text-blue-400 mr-3" />
-                <h3 className="text-2xl font-semibold text-blue-300">
-                  Achievements
-                </h3>
+                <h3 className="text-2xl font-semibold text-blue-300">Achievements</h3>
               </div>
               <ul className="space-y-2">
                 {achievements.map((achievement, index) => (
@@ -70,9 +68,7 @@ export default function Achievements() {
             >
               <div className="flex items-center mb-4">
                 <IconCertificate className="w-8 h-8 text-blue-400 mr-3" />
-                <h3 className="text-2xl font-semibold text-blue-300">
-                  Certifications
-                </h3>
+                <h3 className="text-2xl font-semibold text-blue-300">Certifications</h3>
               </div>
               <ul className="space-y-2">
                 {certifications.map((certification, index) => (
@@ -93,5 +89,6 @@ export default function Achievements() {
         </div>
       </div>
     </motion.section>
-  );
+  )
 }
+

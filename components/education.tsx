@@ -1,7 +1,7 @@
 "use client";
-import { IconSchool, IconBuildingSkyscraper } from "@tabler/icons-react";
-import { motion } from "framer-motion";
-import ScrollAnimation from "./ScrollAnimation";
+import { IconSchool, IconBuildingSkyscraper } from "@tabler/icons-react"
+import { motion } from "framer-motion"
+import ScrollAnimation from "./ScrollAnimation"
 
 export default function Education() {
   const educationData = [
@@ -9,18 +9,15 @@ export default function Education() {
       institution: "University of Jaffna",
       degree: "Bachelor of Science Honours in Computer Science",
       period: "2021 - 2025",
-      //gpa: "4.00 / 4.00",
-      //credits: "68 credits",
       icon: IconSchool,
     },
     {
       institution: "Jaffna Hindu College",
       degree: "G.C.E. A/L (Mathematics Stream)",
       period: "2009 - 2018",
-      //details: "Z-score: 1.1861 (2019)",
       icon: IconBuildingSkyscraper,
     },
-  ];
+  ]
 
   return (
     <motion.section
@@ -52,9 +49,7 @@ export default function Education() {
               >
                 <edu.icon className="w-12 h-12 text-blue-400 mr-4 flex-shrink-0" />
                 <div>
-                  <h3 className="text-xl font-semibold text-blue-300">
-                    {edu.institution}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-blue-300">{edu.institution}</h3>
                   <p className="text-lg text-slate-300">{edu.degree}</p>
                   <p className="text-slate-400">{edu.period}</p>
                 </div>
@@ -64,5 +59,6 @@ export default function Education() {
         </div>
       </div>
     </motion.section>
-  );
+  )
 }
+

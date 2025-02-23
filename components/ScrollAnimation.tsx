@@ -1,24 +1,25 @@
-"use client";
-import { motion, useAnimation, useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
-import type React from "react";
+"use client"
+
+import { motion, useAnimation, useInView } from "framer-motion"
+import { useEffect, useRef } from "react"
+import type React from "react"
 
 interface ScrollAnimationProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function ScrollAnimation({ children }: ScrollAnimationProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { amount: 0.2, once: false });
-  const controls = useAnimation();
+  const ref = useRef(null)
+  const isInView = useInView(ref, { amount: 0.2, once: false })
+  const controls = useAnimation()
 
   useEffect(() => {
     if (isInView) {
-      controls.start("visible");
+      controls.start("visible")
     } else {
-      controls.start("hidden");
+      controls.start("hidden")
     }
-  }, [isInView, controls]);
+  }, [isInView, controls])
 
   return (
     <motion.div
@@ -33,5 +34,6 @@ export default function ScrollAnimation({ children }: ScrollAnimationProps) {
     >
       {children}
     </motion.div>
-  );
+  )
 }
+
