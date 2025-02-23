@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, LayoutGroup, useInView } from "framer-motion";
 import {
   IconArrowLeft,
@@ -77,7 +77,7 @@ export default function VideoPortfolio() {
         (currentPage + 1) * itemsPerPage,
       );
 
-  const getVisiblePages = () => {
+  const getVisiblePages = useCallback(() => {
     if (totalPages <= 5) return [...Array(totalPages).keys()];
 
     if (currentPage <= 2) return [0, 1, 2, 3, 4];
@@ -97,7 +97,7 @@ export default function VideoPortfolio() {
       currentPage + 1,
       currentPage + 2,
     ];
-  };
+  }, [totalPages, currentPage]);
 
   return (
     <motion.section
