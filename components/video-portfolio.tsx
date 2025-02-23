@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup, useInView } from "framer-motion";
 import {
   IconArrowLeft,
   IconArrowRight,
@@ -20,17 +20,30 @@ export default function VideoPortfolio() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useWindowSize();
 
+  // Refs for scroll animations
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const controlsRef = useRef<HTMLDivElement>(null);
+
+  // InView hooks for scroll animations
+  const isSectionInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const isTitleInView = useInView(titleRef, { once: true, amount: 0.5 });
+  const isTabsInView = useInView(tabsRef, { once: true, amount: 0.5 });
+  const isGridInView = useInView(gridRef, { once: true, amount: 0.2 });
+  const isControlsInView = useInView(controlsRef, { once: true, amount: 0.5 });
+
   const videos = activeSection === "films" ? shortFilms : promos;
 
-  // Dynamic items per page based on screen size and expanded state
   const getItemsPerPage = useCallback(() => {
     if (isExpanded) {
-      return videos.length; // Show all videos when expanded
+      return videos.length;
     } else {
-      if (width >= 1280) return 3; // xl
-      if (width >= 1024) return 3; // lg
-      if (width >= 768) return 2; // md
-      return 1; // sm and below
+      if (width >= 1280) return 3;
+      if (width >= 1024) return 3;
+      if (width >= 768) return 2;
+      return 1;
     }
   }, [width, isExpanded, videos.length]);
 
@@ -46,12 +59,19 @@ export default function VideoPortfolio() {
   };
 
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-    setCurrentPage(0); // Reset to first page when toggling view
+    setIsExpanded((prev) => {
+      if (prev) {
+        document
+          .getElementById("videos")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }
+      return !prev;
+    });
+    setCurrentPage(0);
   };
 
   const currentVideos = isExpanded
-    ? videos // Show all videos when expanded
+    ? videos
     : videos.slice(
         currentPage * itemsPerPage,
         (currentPage + 1) * itemsPerPage,
@@ -59,34 +79,87 @@ export default function VideoPortfolio() {
 
   return (
     <motion.section
+      ref={sectionRef}
       id="videos"
       className="py-20 bg-slate-900 w-full relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isSectionInView ? 1 : 0 }}
+      transition={{ duration: 0.8 }}
     >
       <div className="gradient-bg">
-        <div />
-        <div />
-        <div />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            delay: 1,
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatType: "reverse",
+            delay: 2,
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <h2 className="text-3xl font-bold mb-12 text-center text-blue-400">
+        <motion.h2
+          ref={titleRef}
+          className="text-3xl font-bold mb-12 text-center text-blue-400"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{
+            y: isTitleInView ? 0 : 20,
+            opacity: isTitleInView ? 1 : 0,
+          }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           Visual Creations
-        </h2>
+        </motion.h2>
 
         {/* Section Tabs */}
-        <div className="flex justify-center mb-8">
+        <motion.div
+          ref={tabsRef}
+          className="flex justify-center mb-8"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: isTabsInView ? 0 : 20, opacity: isTabsInView ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           <div className="glass-card rounded-full p-1 flex space-x-2">
             <motion.button
               onClick={() => {
                 setActiveSection("films");
                 setCurrentPage(0);
+                setIsExpanded(false);
               }}
               className={`px-6 py-2 rounded-full transition-colors duration-300 ${
                 activeSection === "films"
                   ? "bg-blue-500 text-white"
                   : "text-blue-300 hover:bg-white/5"
               }`}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Short Films & Songs
             </motion.button>
@@ -94,49 +167,76 @@ export default function VideoPortfolio() {
               onClick={() => {
                 setActiveSection("promos");
                 setCurrentPage(0);
+                setIsExpanded(false);
               }}
               className={`px-6 py-2 rounded-full transition-colors duration-300 ${
                 activeSection === "promos"
                   ? "bg-blue-500 text-white"
                   : "text-blue-300 hover:bg-white/5"
               }`}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               Promotional Videos
             </motion.button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Video Grid */}
-        <div className="relative" ref={containerRef}>
+        <motion.div
+          ref={gridRef}
+          className="relative"
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: isGridInView ? 0 : 40, opacity: isGridInView ? 1 : 0 }}
+          transition={{ duration: 0.8 }}
+        >
           <div className="overflow-hidden">
-            <AnimatePresence mode="wait" initial={false}>
+            <LayoutGroup>
               <motion.div
-                key={`${activeSection}-${currentPage}-${isExpanded}`}
+                layout
                 className={`grid gap-6 ${
                   isExpanded
                     ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3"
                     : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 }`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
               >
-                {currentVideos.map((video) => (
-                  <VideoCard key={video.videoId} {...video} />
-                ))}
+                <AnimatePresence mode="wait">
+                  {currentVideos.map((video, index) => (
+                    <motion.div
+                      key={video.videoId}
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{
+                        duration: 0.08,
+                      }}
+                    >
+                      <VideoCard {...video} />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </motion.div>
-            </AnimatePresence>
+            </LayoutGroup>
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex justify-center items-center mt-8 space-x-4">
+          <motion.div
+            ref={controlsRef}
+            className="flex justify-center items-center mt-8 space-x-4"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{
+              y: isControlsInView ? 0 : 20,
+              opacity: isControlsInView ? 1 : 0,
+            }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             {!isExpanded && (
               <>
                 <motion.button
                   onClick={handlePrev}
                   className="glass-card p-3 rounded-full text-blue-300 hover:text-blue-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   disabled={currentPage === 0}
                 >
@@ -154,7 +254,8 @@ export default function VideoPortfolio() {
                           ? "bg-blue-500 w-6"
                           : "bg-blue-500/30 w-2 hover:bg-blue-500/50"
                       }`}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.8 }}
                     />
                   ))}
                 </div>
@@ -162,6 +263,7 @@ export default function VideoPortfolio() {
                 <motion.button
                   onClick={handleNext}
                   className="glass-card p-3 rounded-full text-blue-300 hover:text-blue-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   disabled={currentPage === totalPages - 1}
                 >
@@ -173,6 +275,7 @@ export default function VideoPortfolio() {
             <motion.button
               onClick={toggleExpand}
               className="glass-card p-3 rounded-full text-blue-300 hover:text-blue-100"
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               {isExpanded ? (
@@ -181,8 +284,8 @@ export default function VideoPortfolio() {
                 <IconMaximize className="w-6 h-6" />
               )}
             </motion.button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </motion.section>
   );
