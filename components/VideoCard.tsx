@@ -54,41 +54,66 @@ export default function VideoCard({
         />
       );
     } else if (platform === "facebook") {
-      return FacebookVideoEmbed(videoId);
+      return (
+        <iframe
+          src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook%2Fvideos%2F${videoId}%2F&show_text=false`}
+          className="absolute top-0 left-0 w-full h-full border-0"
+          scrolling="no"
+          frameBorder="0"
+          allowFullScreen={true}
+          allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
+        ></iframe>
+      );
     }
   };
 
   const FacebookVideoEmbed = (videoId: string) => {
     const [embedFailed, setEmbedFailed] = useState(false);
-    const iframeRef = useRef(null);
+    const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+    const [thumbnailFailed, setThumbnailFailed] = useState(false);
+    const iframeRef = useRef<HTMLIFrameElement | null>(null);
     const videoUrl = `https://www.facebook.com/facebook/videos/${videoId}/`;
-    const videoThumbnail = `https://graph.facebook.com/${videoId}/picture`;
+    const fallbackThumbnail = "/fallback-thumbnail.jpg"; // Replace with your fallback image
+    console.log(thumbnailUrl);
 
     useEffect(() => {
-      const checkIframeContent = () => {
-        const iframe = iframeRef.current;
-        console.log(iframe);
-        if (!iframe) return;
-
+      // Fetch video thumbnail from Facebook Graph API
+      const fetchThumbnail = async () => {
         try {
-          // Cannot access iframe content directly (cross-origin policy),
-          // But we can observe if it resizes to an error page
-          const observer = new MutationObserver(() => {
-            if (iframe.clientHeight < 100) {
-              setEmbedFailed(true); // Switch to thumbnail if the iframe collapses
-            }
-          });
+          const response = await fetch(
+            `https://graph.facebook.com/v22.0/${videoId}/thumbnails`,
+          );
+          const data = await response.json();
 
-          observer.observe(iframe, { attributes: true, subtree: true });
-
-          return () => observer.disconnect();
+          if (data?.thumbnails?.length > 0) {
+            setThumbnailUrl(data.thumbnails[0].uri); // Use the first thumbnail
+          } else {
+            setThumbnailFailed(true);
+          }
         } catch (error) {
-          console.error("Error observing iframe:", error);
-          setEmbedFailed(true);
+          console.error("Error fetching thumbnail:", error);
+          setThumbnailFailed(true);
         }
       };
 
-      setTimeout(checkIframeContent, 3000); // Wait for the iframe to load
+      fetchThumbnail();
+    }, [videoId]);
+
+    useEffect(() => {
+      const checkIframeFailure = () => {
+        if (!iframeRef.current) return;
+
+        setTimeout(() => {
+          if (
+            iframeRef.current?.clientHeight &&
+            iframeRef.current.clientHeight < 100
+          ) {
+            setEmbedFailed(true);
+          }
+        }, 3000);
+      };
+
+      checkIframeFailure();
     }, []);
 
     return (
@@ -96,14 +121,25 @@ export default function VideoCard({
         {!embedFailed ? (
           <iframe
             ref={iframeRef}
-            src={`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook%2Fvideos%2F${videoId}%2F&show_text=false`}
+            src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(videoUrl)}&show_text=false`}
             className="absolute top-0 left-0 w-full h-full border-0"
             scrolling="no"
             frameBorder="0"
             allowFullScreen
             allow="clipboard-write; encrypted-media; picture-in-picture; web-share"
             loading="lazy"
-          ></iframe>
+            onError={() => setEmbedFailed(true)}
+            onLoad={() => {
+              setTimeout(() => {
+                if (
+                  iframeRef.current?.clientHeight &&
+                  iframeRef.current.clientHeight < 100
+                ) {
+                  setEmbedFailed(true);
+                }
+              }, 2000);
+            }}
+          />
         ) : (
           <a
             href={videoUrl}
@@ -112,9 +148,14 @@ export default function VideoCard({
             className="relative block"
           >
             <img
-              src={videoThumbnail}
+              src={
+                thumbnailFailed
+                  ? fallbackThumbnail
+                  : thumbnailUrl || fallbackThumbnail
+              }
               alt="Facebook Video Thumbnail"
               className="w-full h-auto"
+              onError={() => setThumbnailFailed(true)}
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <svg
