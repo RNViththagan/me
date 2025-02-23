@@ -13,7 +13,7 @@ import { useWindowSize } from "@/app/hooks/useWindowSize";
 
 export default function VideoPortfolio() {
   const [activeSection, setActiveSection] = useState<"films" | "promos">(
-    "promos",
+    "films",
   );
   const [currentPage, setCurrentPage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
