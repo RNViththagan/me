@@ -177,7 +177,7 @@ export default function VideoCard({
   return (
     <motion.div
       id={`video-${videoId}`}
-      className="glass-card rounded-xl overflow-hidden shadow-lg h-full flex flex-col group"
+      className="glass-card rounded-xl overflow-visible shadow-lg h-full flex flex-col group p-0.5"
       layout
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -188,7 +188,7 @@ export default function VideoCard({
         scale: { duration: 0.08 },
       }}
     >
-      <div className="relative pt-[56.25%] h-0 flex-shrink-0 overflow-hidden">
+      <div className="relative pt-[56.25%] h-0 flex-shrink-0 overflow-hidden ">
         <div
           className={`absolute inset-0 flex items-center justify-center bg-slate-800 transition-opacity duration-700 ${
             isLoaded ? "opacity-0 pointer-events-none" : "opacity-100"

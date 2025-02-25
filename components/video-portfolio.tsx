@@ -1,5 +1,6 @@
 "use client";
-import { useRef, useState, useCallback, useMemo } from "react";
+import type React from "react";
+import { useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence, LayoutGroup, useInView } from "framer-motion";
 import {
   IconArrowLeft,
@@ -98,6 +99,33 @@ export default function VideoPortfolio() {
       currentPage + 2,
     ];
   }, [totalPages, currentPage]);
+
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (isExpanded) return;
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (isExpanded) return;
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (isExpanded) return;
+    const swipeThreshold = 50;
+    const diff = touchStart - touchEnd;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0 && currentPage < totalPages - 1) {
+        handleNext();
+      } else if (diff < 0 && currentPage > 0) {
+        handlePrev();
+      }
+    }
+  };
 
   return (
     <motion.section
@@ -212,11 +240,35 @@ export default function VideoPortfolio() {
           animate={{ y: isGridInView ? 0 : 40, opacity: isGridInView ? 1 : 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="overflow-hidden">
+          <div className="overflow-visible px-2 sm:px-0" ref={containerRef}>
             <LayoutGroup>
               <motion.div
                 layout
-                className={`grid gap-6 md:m-5  ${
+                drag={isExpanded ? false : "x"}
+                dragConstraints={containerRef}
+                dragElastic={0.2}
+                dragMomentum={false}
+                onDragEnd={(e, info) => {
+                  if (info.offset.x > 100 && currentPage > 0) {
+                    handlePrev();
+                  } else if (
+                    info.offset.x < -100 &&
+                    currentPage < totalPages - 1
+                  ) {
+                    handleNext();
+                  }
+                }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                style={{
+                  cursor: isExpanded ? "default" : "grab",
+                }}
+                whileDrag={{
+                  cursor: "grabbing",
+                  scale: 0.98,
+                }}
+                className={`grid gap-4 sm:gap-6 md:m-5 ${
                   isExpanded
                     ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3"
                     : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
