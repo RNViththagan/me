@@ -1,6 +1,8 @@
-import { MapPin, ChevronRight } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+"use client";
+import { MapPin, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
@@ -17,11 +19,42 @@ export default function Hero() {
         <div className="lg:w-1/2 mb-12 lg:ml-12 lg:mb-0 text-center lg:text-left">
           <h1 className="text-4xl lg:text-6xl font-extrabold mb-4 leading-tight">
             Hi, I'm{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+            <motion.span
+              className="text-transparent bg-clip-text bg-gradient-to-r"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, var(--gradient-from), var(--gradient-to))",
+                "--gradient-from": "rgb(96, 165, 250)",
+                "--gradient-to": "rgb(147, 51, 234)",
+              }}
+              animate={{
+                "--gradient-from": [
+                  "rgb(96, 165, 250)", // blue-400
+                  "rgb(139, 92, 246)", // violet-500
+                  "rgb(236, 72, 153)", // pink-500
+                  "rgb(59, 130, 246)", // blue-500
+                  "rgb(96, 165, 250)", // back to blue-400
+                ],
+                "--gradient-to": [
+                  "rgb(147, 51, 234)", // purple-600
+                  "rgb(236, 72, 153)", // pink-500
+                  "rgb(139, 92, 246)", // violet-500
+                  "rgb(147, 51, 234)", // purple-600
+                  "rgb(147, 51, 234)", // stay at purple-600
+                ],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "linear",
+              }}
+            >
               Viththagan
-            </span>
+            </motion.span>
           </h1>
-          <h2 className="text-xl lg:text-2xl mb-6 text-blue-200">Computer Science Undergraduate</h2>
+          <h2 className="text-xl lg:text-2xl mb-6 text-blue-200">
+            Computer Science Undergraduate
+          </h2>
           <div className="flex items-center justify-center lg:justify-start bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 w-fit mb-8 mx-auto lg:mx-0">
             <MapPin className="h-5 w-5 mr-2 text-blue-300" />
             <span className="text-blue-100">Jaffna, Sri Lanka</span>
@@ -65,7 +98,10 @@ export default function Hero() {
             <div className="absolute inset-4 rounded-full border-2 border-blue-500/30 animate-spin-slow" />
 
             {/* Inner Pattern */}
-            <div className="absolute inset-8 animate-spin-slow" style={{ animationDirection: "reverse" }}>
+            <div
+              className="absolute inset-8 animate-spin-slow"
+              style={{ animationDirection: "reverse" }}
+            >
               {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
@@ -102,6 +138,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-
