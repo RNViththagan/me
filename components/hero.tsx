@@ -1,10 +1,47 @@
 "use client";
+
 import { MapPin, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function Hero() {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.05,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut",
+      },
+    },
+    tap: {
+      scale: 0.95,
+    },
+  };
+
   return (
     <section className="relative bg-gradient-to-br from-slate-900 to-blue-900 text-white overflow-hidden md:rounded-t-xl shadow-2xl">
       {/* Background elements */}
@@ -16,9 +53,23 @@ export default function Hero() {
 
       {/* Content */}
       <div className="container mx-auto px-6 py-16 md:py-24 flex flex-col lg:flex-row items-center justify-between relative z-10">
-        <div className="lg:w-1/2 mb-12 lg:ml-12 lg:mb-0 text-center lg:text-left">
-          <h1 className="text-4xl lg:text-6xl font-extrabold mb-4 leading-tight">
-            Hi, I'm{" "}
+        <motion.div
+          className="lg:w-1/2 mb-12 lg:ml-12 lg:mb-0 text-center lg:text-left"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.h1
+            className="text-4xl lg:text-6xl font-extrabold mb-4 leading-tight"
+            variants={item}
+          >
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              Hi, I'm{" "}
+            </motion.span>
             <motion.span
               className="text-transparent bg-clip-text bg-gradient-to-r"
               style={{
@@ -27,7 +78,10 @@ export default function Hero() {
                 "--gradient-from": "rgb(96, 165, 250)",
                 "--gradient-to": "rgb(147, 51, 234)",
               }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{
+                opacity: 1,
+                scale: 1,
                 "--gradient-from": [
                   "rgb(96, 165, 250)", // blue-400
                   "rgb(139, 92, 246)", // violet-500
@@ -44,39 +98,128 @@ export default function Hero() {
                 ],
               }}
               transition={{
-                duration: 6,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
+                opacity: { duration: 0.5, delay: 0.7 },
+                scale: { duration: 0.5, delay: 0.7 },
+                "--gradient-from": {
+                  duration: 8,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "linear",
+                },
+                "--gradient-to": {
+                  duration: 8,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "linear",
+                },
               }}
             >
               Viththagan
             </motion.span>
-          </h1>
-          <h2 className="text-xl lg:text-2xl mb-6 text-blue-200">
+          </motion.h1>
+
+          <motion.h2
+            className="text-xl lg:text-2xl mb-6 text-blue-200"
+            variants={item}
+            animate={{
+              opacity: [0.8, 1, 0.8],
+              y: [0, -2, 0],
+            }}
+            transition={{
+              opacity: {
+                duration: 3,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              },
+              y: {
+                duration: 3,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              },
+            }}
+          >
             Computer Science Undergraduate
-          </h2>
-          <div className="flex items-center justify-center lg:justify-start bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 w-fit mb-8 mx-auto lg:mx-0">
-            <MapPin className="h-5 w-5 mr-2 text-blue-300" />
+          </motion.h2>
+
+          <motion.div
+            className="flex items-center justify-center lg:justify-start bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 w-fit mb-8 mx-auto lg:mx-0"
+            variants={item}
+            whileHover={{
+              backgroundColor: "rgba(255, 255, 255, 0.15)",
+              transition: { duration: 0.2 },
+            }}
+          >
+            <motion.div
+              animate={{
+                rotate: [0, 5, 0, -5, 0],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            >
+              <MapPin className="h-5 w-5 mr-2 text-blue-300" />
+            </motion.div>
             <span className="text-blue-100">Jaffna, Sri Lanka</span>
-          </div>
-          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start">
-            <Link
-              href="#contact"
-              className="btn bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-300 flex items-center justify-center"
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start"
+            variants={item}
+          >
+            <motion.div
+              whileHover="hover"
+              whileTap="tap"
+              variants={buttonVariants}
             >
-              Get in Touch
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </Link>
-            <Link
-              href="#projects"
-              className="btn bg-purple-600 hover:bg-purple-700 text-white transition-colors duration-300 flex items-center justify-center"
+              <Link
+                href="#contact"
+                className="btn bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-300 flex items-center justify-center"
+              >
+                Get in Touch
+                <motion.div
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </motion.div>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              whileHover="hover"
+              whileTap="tap"
+              variants={buttonVariants}
             >
-              View Projects
-              <ChevronRight className="ml-2 h-5 w-5" />
-            </Link>
-          </div>
-        </div>
-        <div className="lg:w-1/2 flex justify-center">
+              <Link
+                href="#projects"
+                className="btn bg-purple-600 hover:bg-purple-700 text-white transition-colors duration-300 flex items-center justify-center"
+              >
+                View Projects
+                <motion.div
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </motion.div>
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="lg:w-1/2 flex justify-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+        >
           <div className="relative w-64 h-64 lg:w-80 lg:h-80 animate-float">
             {/* Decorative Pattern */}
             <div className="absolute inset-0 animate-spin-slow">
@@ -116,10 +259,38 @@ export default function Hero() {
             </div>
 
             {/* Glass Background */}
-            <div className="absolute inset-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20" />
+            <motion.div
+              className="absolute inset-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20"
+              animate={{
+                boxShadow: [
+                  "0 0 0 rgba(191, 219, 254, 0)",
+                  "0 0 15px rgba(191, 219, 254, 0.3)",
+                  "0 0 0 rgba(191, 219, 254, 0)",
+                ],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            />
 
             {/* Image Container */}
-            <div className="absolute inset-12 rounded-full overflow-hidden border-2 border-white/50">
+            <motion.div
+              className="absolute inset-12 rounded-full overflow-hidden border-2 border-white/50"
+              animate={{
+                borderColor: [
+                  "rgba(255, 255, 255, 0.5)",
+                  "rgba(191, 219, 254, 0.7)",
+                  "rgba(255, 255, 255, 0.5)",
+                ],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            >
               <Image
                 src="./Viththagan.jpeg"
                 alt="Viththagan"
@@ -128,14 +299,49 @@ export default function Hero() {
                 className="rounded-full"
                 style={{ objectPosition: "center" }}
               />
-            </div>
+            </motion.div>
 
             {/* Glowing Orbs */}
-            <div className="absolute top-1/2 left-0 w-3 h-3 bg-blue-500 rounded-full blur-sm animate-float" />
-            <div className="absolute bottom-0 right-1/2 w-3 h-3 bg-purple-500 rounded-full blur-sm animate-float animation-delay-2000" />
-            <div className="absolute top-0 right-1/4 w-3 h-3 bg-pink-500 rounded-full blur-sm animate-float animation-delay-4000" />
+            <motion.div
+              className="absolute top-1/2 left-0 w-3 h-3 bg-blue-500 rounded-full blur-sm animate-float"
+              animate={{
+                opacity: [0.5, 1, 0.5],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="absolute bottom-0 right-1/2 w-3 h-3 bg-purple-500 rounded-full blur-sm animate-float animation-delay-2000"
+              animate={{
+                opacity: [0.5, 1, 0.5],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+            />
+            <motion.div
+              className="absolute top-0 right-1/4 w-3 h-3 bg-pink-500 rounded-full blur-sm animate-float animation-delay-4000"
+              animate={{
+                opacity: [0.5, 1, 0.5],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 3.5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 2,
+              }}
+            />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
