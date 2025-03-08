@@ -7,6 +7,17 @@ import ScrollAnimation from "./ScrollAnimation";
 export default function Projects() {
   const projects = [
     {
+      title: "Software Advisor",
+      year: "2025",
+      role: "Full Stack Developer",
+      technologies: ["Vite.js", "React.js", "TypeScript", "Gemini AI"],
+      description:
+        "AI-powered software recommendation system that suggests the best software based on user requirements. Uses Gemini AI for intelligent suggestions.",
+      github: "https://github.com/RNViththagan/software-advisor",
+      link: "https://rnviththagan.github.io/software-advisor/",
+      image: "./prj/software-advisor.png",
+    },
+    {
       title: "Welfare Hostel Management System",
       year: "2024",
       role: "Team Lead",
