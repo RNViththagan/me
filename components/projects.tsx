@@ -9,7 +9,7 @@ export default function Projects() {
     {
       title: "Software Advisor",
       year: "2025",
-      role: "Full Stack Developer",
+      role: "Developer",
       technologies: ["Vite.js", "React.js", "TypeScript", "Gemini AI"],
       description:
         "AI-powered software recommendation system that suggests the best software based on user requirements. Uses Gemini AI for intelligent suggestions.",
