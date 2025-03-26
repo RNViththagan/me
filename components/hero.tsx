@@ -221,125 +221,62 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <div className="relative w-64 h-64 lg:w-80 lg:h-80 animate-float">
-            {/* Decorative Pattern */}
-            <div className="absolute inset-0 animate-spin-slow">
-              {[...Array(8)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-full h-full origin-center"
-                  style={{
-                    transform: `rotate(${i * 45}deg)`,
-                  }}
-                >
-                  <div className="absolute top-0 left-1/2 w-1 h-8 bg-gradient-to-b from-blue-500 to-transparent transform -translate-x-1/2 rounded-full" />
-                  <div className="absolute bottom-0 left-1/2 w-1 h-8 bg-gradient-to-t from-purple-500 to-transparent transform -translate-x-1/2 rounded-full" />
-                </div>
-              ))}
-            </div>
+            {/* Professional Photo Frame */}
+            <div className="absolute inset-0">
+              {/* Subtle professional border */}
+              <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-pulse"></div>
 
-            {/* Outer Ring */}
-            <div className="absolute inset-4 rounded-full border-2 border-blue-500/30 animate-spin-slow" />
+              {/* Professional outer ring */}
+              <div className="absolute inset-4 rounded-full border border-white/20 backdrop-blur-sm"></div>
 
-            {/* Inner Pattern */}
-            <div
-              className="absolute inset-8 animate-spin-slow"
-              style={{ animationDirection: "reverse" }}
-            >
-              {[...Array(6)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-full h-full origin-center"
-                  style={{
-                    transform: `rotate(${i * 60}deg)`,
-                  }}
-                >
-                  <div className="absolute top-0 left-1/2 w-0.5 h-4 bg-purple-500/30 transform -translate-x-1/2" />
-                </div>
-              ))}
-            </div>
+              {/* Professional inner accent */}
+              <div className="absolute inset-6 rounded-full overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
+              </div>
 
-            {/* Glass Background */}
-            <motion.div
-              className="absolute inset-10 rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20"
-              animate={{
-                boxShadow: [
-                  "0 0 0 rgba(191, 219, 254, 0)",
-                  "0 0 15px rgba(191, 219, 254, 0.3)",
-                  "0 0 0 rgba(191, 219, 254, 0)",
-                ],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Image Container */}
-            <motion.div
-              className="absolute inset-12 rounded-full overflow-hidden border-2 border-white/50"
-              animate={{
-                borderColor: [
-                  "rgba(255, 255, 255, 0.5)",
-                  "rgba(191, 219, 254, 0.7)",
-                  "rgba(255, 255, 255, 0.5)",
-                ],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            >
-              <Image
-                src="./Viththagan.jpeg"
-                alt="Viththagan"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full"
-                style={{ objectPosition: "center" }}
+              {/* Professional Glass Background */}
+              <motion.div
+                className="absolute inset-8 rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/30"
+                animate={{
+                  boxShadow: [
+                    "0 0 0 rgba(191, 219, 254, 0)",
+                    "0 0 10px rgba(191, 219, 254, 0.2)",
+                    "0 0 0 rgba(191, 219, 254, 0)",
+                  ],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
               />
-            </motion.div>
 
-            {/* Glowing Orbs */}
-            <motion.div
-              className="absolute top-1/2 left-0 w-3 h-3 bg-blue-500 rounded-full blur-sm animate-float"
-              animate={{
-                opacity: [0.5, 1, 0.5],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            />
-            <motion.div
-              className="absolute bottom-0 right-1/2 w-3 h-3 bg-purple-500 rounded-full blur-sm animate-float animation-delay-2000"
-              animate={{
-                opacity: [0.5, 1, 0.5],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-            />
-            <motion.div
-              className="absolute top-0 right-1/4 w-3 h-3 bg-pink-500 rounded-full blur-sm animate-float animation-delay-4000"
-              animate={{
-                opacity: [0.5, 1, 0.5],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 3.5,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-                delay: 2,
-              }}
-            />
+              {/* Image Container */}
+              <motion.div
+                className="absolute inset-10 rounded-full overflow-hidden shadow-lg"
+                animate={{
+                  borderColor: [
+                    "rgba(255, 255, 255, 0.3)",
+                    "rgba(191, 219, 254, 0.4)",
+                    "rgba(255, 255, 255, 0.3)",
+                  ],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                }}
+              >
+                <Image
+                  src="./Viththagan.jpeg"
+                  alt="Viththagan"
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-full"
+                  style={{ objectPosition: "center" }}
+                />
+              </motion.div>
+            </div>
           </div>
         </motion.div>
       </div>
