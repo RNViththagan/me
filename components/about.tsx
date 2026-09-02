@@ -1,13 +1,13 @@
 "use client";
-import { IconBook, IconCode, IconBulb } from "@tabler/icons-react";
+import { IconUsers, IconCode, IconBulb } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import ScrollAnimation from "./ScrollAnimation";
 
 export default function About() {
   const traits = [
-    { icon: IconBook, text: "Passionate Learner" },
-    { icon: IconCode, text: "Full-Stack Developer" },
-    { icon: IconBulb, text: "AI Enthusiast" },
+    { icon: IconCode, text: "AI Agent Engineer" },
+    { icon: IconBulb, text: "AI & ML Research" },
+    { icon: IconUsers, text: "Community & Mentorship" },
   ];
 
   return (
@@ -36,10 +36,13 @@ export default function About() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            A highly motivated Computer Science undergraduate with a passion for
-            full-stack development, leadership, and a growing interest in
-            Machine Learning and Deep Learning. Skilled in building scalable web
-            applications and integrating AI techniques into real-world problems.
+            I build AI agent systems, focused on the agent harness that turns a
+            language model into a dependable coding agent. At WSO2, I work on the
+            agent architecture behind WSO2 Integrator Copilot, an AI coding
+            assistant for Ballerina integration development, along with the
+            open-source developer tooling around it. My background spans applied
+            AI engineering and machine learning research, and I stay active in
+            the developer community through speaking, writing, and mentoring.
           </motion.p>
         </ScrollAnimation>
         <div className="flex flex-wrap justify-center gap-8">

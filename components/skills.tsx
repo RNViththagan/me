@@ -4,6 +4,8 @@ import {
   IconDatabase,
   IconDeviceLaptop,
   IconVideo,
+  IconRobot,
+  IconBrain,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import ScrollAnimation from "./ScrollAnimation";
@@ -11,22 +13,38 @@ import ScrollAnimation from "./ScrollAnimation";
 export default function Skills() {
   const skills = [
     {
+      category: "AI Agents & LLMs",
+      items: [
+        "Anthropic Claude API",
+        "Vercel AI SDK",
+        "Model Context Protocol (MCP)",
+        "Agent Orchestration",
+        "Prompt Caching",
+      ],
+      icon: IconRobot,
+    },
+    {
       category: "Programming Languages",
-      items: ["Java", "Python", "PHP", "JavaScript", "PERL"],
+      items: ["TypeScript", "JavaScript", "Java", "Python", "Ballerina"],
       icon: IconCode,
     },
     {
-      category: "Web Development",
-      items: ["React.js", "Node.js", "Express.js"],
+      category: "Web & Extensions",
+      items: ["React", "Node.js", "VS Code Extension API", "XState"],
       icon: IconDeviceLaptop,
     },
     {
-      category: "Database Management",
-      items: ["MySQL (Sequelize ORM)", "MongoDB"],
+      category: "Machine Learning & Research",
+      items: ["PyTorch", "Deep Learning", "Self-Supervised Learning"],
+      icon: IconBrain,
+    },
+    {
+      category: "Data & Tooling",
+      items: ["MySQL", "MongoDB", "Git", "Rush / pnpm", "Webpack"],
       icon: IconDatabase,
     },
     {
-      category: "Video Editing & Graphic Designing",
+      category: "Video Editing & Design",
       items: ["Adobe Premiere Pro", "Adobe After Effects", "Adobe Photoshop"],
       icon: IconVideo,
     },

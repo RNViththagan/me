@@ -121,7 +121,7 @@ export default function Hero() {
                                 y: {duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut"},
                             }}
                         >
-                            Software Engineering Intern
+                            Software Engineer
                             <motion.span
                                 className="ml-2 text-transparent bg-clip-text bg-gradient-to-r from-orange-500/90 to-red-500/90 font-semibold"
                                 animate={{
@@ -144,7 +144,7 @@ export default function Hero() {
                             </motion.span>
                         </motion.h2>
                         <motion.h2
-                            className="text-xl lg:text-2xl mb-6 text-blue-200"
+                            className="text-xl lg:text-2xl text-blue-200"
                             animate={{
                                 opacity: [0.8, 1, 0.8],
                                 y: [0, -2, 0],
@@ -154,7 +154,20 @@ export default function Hero() {
                                 y: {duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.5},
                             }}
                         >
-                            Computer Science Undergraduate
+                            AI Agents &amp; Developer Tooling
+                        </motion.h2>
+                        <motion.h2
+                            className="text-xl lg:text-2xl mb-6 text-blue-200"
+                            animate={{
+                                opacity: [0.8, 1, 0.8],
+                                y: [0, -2, 0],
+                            }}
+                            transition={{
+                                opacity: {duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1},
+                                y: {duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1},
+                            }}
+                        >
+                            Computer Science Graduate
                         </motion.h2>
                     </motion.div>
 

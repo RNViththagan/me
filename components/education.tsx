@@ -13,8 +13,8 @@ export default function Education() {
     },
     {
       institution: "Jaffna Hindu College",
-      degree: "G.C.E. A/L (Mathematics Stream)",
-      period: "2009 - 2018",
+      degree: "G.C.E. A/L (Physical Science Stream)",
+      period: "2010 - 2018",
       icon: IconBuildingSkyscraper,
     },
   ]
