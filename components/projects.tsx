@@ -7,6 +7,28 @@ import ScrollAnimation from "./ScrollAnimation";
 export default function Projects() {
   const projects = [
     {
+      title: "Ballerina Plugin for AI Coding Agents",
+      year: "2026",
+      role: "Creator & Maintainer",
+      technologies: ["Claude Code", "GitHub Copilot", "MCP", "Ballerina"],
+      description:
+        "Open-source plugin that brings Ballerina into Claude Code and GitHub Copilot: language server support, a Ballerina coding skill, and an MCP server that looks up library APIs from Ballerina Central.",
+      github: "https://github.com/ballerina-platform/skills",
+      link: "https://medium.com/@viththagan.rn/bring-ballerina-into-your-ai-coding-agent-295805af98e0",
+      image: "https://opengraph.githubassets.com/1/ballerina-platform/skills",
+    },
+    {
+      title: "PayPal Subscriptions Connector",
+      year: "2025",
+      role: "Developer",
+      technologies: ["Ballerina", "PayPal REST API"],
+      description:
+        "Ballerina connector for the PayPal Subscriptions API, built from scratch with examples and documentation. Published on Ballerina Central.",
+      github: "https://github.com/ballerina-platform/module-ballerinax-paypal.subscriptions",
+      link: "https://central.ballerina.io/ballerinax/paypal.subscriptions/latest",
+      image: "https://opengraph.githubassets.com/1/ballerina-platform/module-ballerinax-paypal.subscriptions",
+    },
+    {
       title: "Software Advisor",
       year: "2025",
       role: "Developer",

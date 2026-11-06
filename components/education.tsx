@@ -7,7 +7,7 @@ export default function Education() {
   const educationData = [
     {
       institution: "University of Jaffna",
-      degree: "Bachelor of Science Honours in Computer Science",
+      degree: "Bachelor of Science Honours in Computer Science - First Class, OGPA 4.00 / 4.00",
       period: "2021 - 2025",
       icon: IconSchool,
     },

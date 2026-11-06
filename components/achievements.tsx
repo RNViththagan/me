@@ -4,11 +4,21 @@ import { motion } from "framer-motion"
 import ScrollAnimation from "./ScrollAnimation"
 
 export default function Achievements() {
-  const achievements = ["🏆 2nd Runner-Up - CodeStorm 2023 (Yarl IT Hub)"]
+  const achievements = [
+    "🥇 Professor Kanthia Kunaratnam Gold Medal - Best overall performance in Pure and Applied Sciences, University of Jaffna (2026)",
+    "🏆 Professor Emeritus Kunaratnam Memorial Prize for Computer Science - University of Jaffna (2026)",
+    "🎤 Guest Speaker - \"Next-Gen Software Engineering in the Era of Agentic AI\", CSSL GenZ Chapter, University of Jaffna (2026)",
+    "📄 Oral Presentation - Self-Supervised Ultrasound Image Denoising, SL-SWCS'25 (2025)",
+    "🏅 THALIR Award - 2nd Year Batch Top, David Pieris Group of Companies (2024)",
+    "🎓 Dean's List - All four levels, Faculty of Science, University of Jaffna (2020 - 2023)",
+    "🏆 2nd Runner-Up - CodeStorm 1.0, Yarl IT Hub (2023)",
+  ]
 
   const certifications = [
-    "📜 Python for Beginners - University of Moratuwa (CODL)",
-    "🏅 IEEE Xtreme Participation (16.0, 17.0)",
+    "📜 Python for Beginners - University of Moratuwa (CODL) (2024)",
+    "📜 HackerRank - Java, JavaScript, SQL, Problem Solving (Basic)",
+    "📜 Microsoft MTA - Networking, Security, Windows OS, Windows Server Admin (2018)",
+    "🏅 IEEE Xtreme Participation (16.0 - 19.0)",
     "🏅 CodeRevivor 2.0 Participation - IEEE SB, University of Vavuniya",
   ]
 
@@ -47,12 +57,12 @@ export default function Achievements() {
                 {achievements.map((achievement, index) => (
                   <motion.li
                     key={index}
-                    className="text-slate-300 flex items-center"
+                    className="text-slate-300 flex items-start"
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
                   >
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                    <span className="w-2 h-2 mt-2 flex-shrink-0 bg-blue-500 rounded-full mr-2"></span>
                     {achievement}
                   </motion.li>
                 ))}
@@ -74,12 +84,12 @@ export default function Achievements() {
                 {certifications.map((certification, index) => (
                   <motion.li
                     key={index}
-                    className="text-slate-300 flex items-center"
+                    className="text-slate-300 flex items-start"
                     initial={{ x: 20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
                   >
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                    <span className="w-2 h-2 mt-2 flex-shrink-0 bg-blue-500 rounded-full mr-2"></span>
                     {certification}
                   </motion.li>
                 ))}

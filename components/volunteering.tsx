@@ -6,6 +6,14 @@ import ScrollAnimation from "./ScrollAnimation"
 export default function Volunteering() {
   const roles = [
     {
+      title: "Editorial Team Lead, Kananiyam 2026 Newsletter, Computer Society, UoJ",
+      year: "2026",
+      links: [
+        { icon: IconWorld, href: "https://www.society.jfn.ac.lk/compsoc/" },
+        { icon: IconBrandFacebook, href: "https://web.facebook.com/uojcompsoc/" },
+      ],
+    },
+    {
       title: "President, Computer Society, UoJ",
       year: "2024",
       links: [

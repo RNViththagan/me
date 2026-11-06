@@ -4,6 +4,7 @@ import {
   IconBrandGithub,
   IconSend,
   IconBrandFacebook,
+  IconBrandMedium,
 } from "@tabler/icons-react";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast"; // Import toast
@@ -63,6 +64,11 @@ export default function Contact() {
                 icon: IconBrandLinkedin,
                 text: "LinkedIn",
                 href: "https://linkedin.com/in/viththagan-roy-nesarajah",
+              },
+              {
+                icon: IconBrandMedium,
+                text: "Medium",
+                href: "https://medium.com/@viththagan.rn",
               },
               {
                 icon: IconBrandFacebook,
