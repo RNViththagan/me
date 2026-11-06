@@ -1,5 +1,5 @@
 "use client";
-import { IconUsers, IconBrandFacebook, IconBrandLinkedin, IconWorld } from "@tabler/icons-react"
+import { IconUsers, IconBrandFacebook, IconBrandLinkedin, IconWorld, IconFileText } from "@tabler/icons-react"
 import { motion } from "framer-motion"
 import ScrollAnimation from "./ScrollAnimation"
 
@@ -9,6 +9,7 @@ export default function Volunteering() {
       title: "Editorial Team Lead, Kananiyam 2026 Newsletter, Computer Society, UoJ",
       year: "2026",
       links: [
+        { icon: IconFileText, href: "./kananiyam/Kananiyam-2026.pdf" },
         { icon: IconWorld, href: "https://www.society.jfn.ac.lk/compsoc/" },
         { icon: IconBrandFacebook, href: "https://web.facebook.com/uojcompsoc/" },
       ],
