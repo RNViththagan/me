@@ -37,10 +37,9 @@ export default function About() {
             transition={{ delay: 0.3, duration: 0.5 }}
           >
             I build AI agent systems, focused on the agent harness that turns a
-            language model into a dependable coding agent. At WSO2, I work on the
-            agent architecture behind WSO2 Integrator Copilot, an AI coding
-            assistant for Ballerina integration development, along with the
-            open-source developer tooling around it. My background spans applied
+            language model into a dependable coding agent. I'm a developer at WSO2
+            Integrator Copilot, an AI coding assistant for Ballerina integration
+            development, and I build open-source developer tooling around it. My background spans applied
             AI engineering and machine learning research, and I stay active in
             the developer community through speaking, writing, and mentoring.
           </motion.p>
